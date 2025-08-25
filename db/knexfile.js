@@ -3,6 +3,7 @@
  */
 const dotenv = require("dotenv");
 const path = require("path");
+dotenv.config({path:path.resolve(__dirname, "../.env")}); // to allow run migrations
 const baseConfig={
   client: 'pg',
   connection: {
