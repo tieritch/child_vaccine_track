@@ -3,7 +3,7 @@ const dotenv=require('dotenv');
 const cors=require('cors');
 const cookieParser=require('cookie-parser');
 const {graphqlHTTP}=require('express-graphql');
-const schema = require('./schema');
+const schema = require('./graphql-schema');
 const {rootResolver}=require('./resolvers');
 const app=express();
 app.use(express.json());
