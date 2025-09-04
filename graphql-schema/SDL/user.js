@@ -8,13 +8,20 @@ const userSDL = `
     email: String!
     password: String!
   }
+ 
+  type AuthPayload {
+    accessToken: String!
+    refreshToken: String!
+    message: String!
+  }
 
   input UserInput {
     firstname: String!
-    lastname:String!
+    lastname: String!
     email: String!
     password: String!
     username: String!
+    role_id: String!
   }
 
   input UpdateUserInput{
@@ -34,6 +41,7 @@ const userSDL = `
 
   extend type Mutation {
     createUser(input: UserInput!): User
+    login(username: String!, password: String!): AuthPayload!
     updateUser(input: UpdateUserInput!):User
     deleteUser(id: ID!): User
   }
