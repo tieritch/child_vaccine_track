@@ -5,7 +5,7 @@ const {formatJoiError,isAuthenticated}=require('../helpers');
 const client=require('../redis-client');
 const {createUserSchema,
     updateUserSchema,
-    deleteUserSchema,}=require('../validate');
+    deleteUserSchema,}=require('../joi-schema');
 const { exist } = require('joi');
 const userResolver = {
   
