@@ -1,6 +1,7 @@
 const express=require('express');
 const dotenv=require('dotenv');
 const cors=require('cors');
+const jwt=require('jsonwebtoken');
 const cookieParser=require('cookie-parser');
 const {graphqlHTTP}=require('express-graphql');
 const schema = require('./graphql-schema');
@@ -14,9 +15,11 @@ app.use(cors({
 }));
 dotenv.config();
 const knexInstance=require('./db/connection');
+const { access } = require('../../school_soft/backend/utils/gen_token');
+console.log(process.env.PORT)
 const port=process.env.PORT||8000;
 app.use(express.json());
-app.use('/graphql', //graphqlValidator,
+/*app.use('/graphql', //graphqlValidator,
     graphqlHTTP({
       schema,
       graphiql: true,
@@ -28,7 +31,38 @@ app.use('/graphql', //graphqlValidator,
         code: err.originalError?.code || 500,
       };
   },
-}));
+})
+  );*/
+
+  app.use(
+    "/graphql",
+    graphqlHTTP((req,res) => {
+      const accessToken=req.cookies.accessToken;
+      console.log(accessToken)
+      let user = null;
+      const secret=process.env.ACCESS_TOKEN_SECRET;
+        if(accessToken)
+          try{
+            user = jwt.verify(accessToken,secret);
+            req.user=user;
+          }catch(err){
+            user = null;
+        }
+  
+      return {
+        schema,
+        graphiql: true,
+        context: { user,res }, // disponible dans resolvers
+        customFormatErrorFn: (err) => {
+          console.error("GraphQL Error:", err.message);
+          return {
+            message: err.message,
+            code: err.originalError?.code || 500,
+          };
+        },
+      };
+    })
+  );
 /*app.use((err, req, res, next) => {
 
   console.error(err.message);
