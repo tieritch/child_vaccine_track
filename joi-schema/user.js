@@ -1,6 +1,21 @@
 const Joi=require('joi');
 const User=require('../models/user');
 
+const loginSchema=Joi.object({
+  username:Joi.string().required(),
+  password:Joi.string().required()
+}).external(async(input)=>{
+  let user=await User.findOne({username:input.username});
+  if (!user) {
+    throw new Error("Invalid credentials");
+  }
+  const passwordIsTrue=await bcrypt.compare(input.password,user.password)
+  if(!passwordIsTrue){
+    throw new Error("Wrong user password");
+  }
+ 
+})
+
 const createUserSchema = Joi.object({
     firstname: Joi.string().required(),
     lastname: Joi.string().required(),
