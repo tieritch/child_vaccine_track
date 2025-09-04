@@ -31,6 +31,7 @@ const userSDL = `
     password: String
     username: String
     id:ID!
+    role_id: String
   }
 
   
