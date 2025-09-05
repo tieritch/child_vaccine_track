@@ -5,8 +5,8 @@ const roleSDL=require('./SDL/role');
 const baseTypeDefs=require('./SDL/base')
 
 const typeDefs=mergeTypeDefs([baseTypeDefs,userSDL,roleSDL]);
-const {userResolver}=require('../resolvers')
-const resolvers = mergeResolvers([userResolver]);
+const {userResolver,roleResolver}=require('../resolvers')
+const resolvers = mergeResolvers([userResolver,roleResolver]);
 
 const schema = makeExecutableSchema({
     typeDefs,
