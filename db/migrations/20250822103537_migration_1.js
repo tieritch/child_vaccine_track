@@ -14,8 +14,6 @@ exports.up = function(knex) {
             table.check("email ~ '^[\\w.-]+@[\\w.-]+\\.\\w{2,}$'");
             table.string('username').notNullable().unique();
             table.string('password').notNullable();
-            // CHECK (password ~ '^(?=.*[a-z])(?=.*[A-Z]).{8,}$');
-           // table.check("password ~'^(?=.*[a-z])(?=.*[A-Z]).{6,}$'")
             table.timestamps(true,true);
         })
 
