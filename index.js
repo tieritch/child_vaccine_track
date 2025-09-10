@@ -38,13 +38,11 @@ app.use(express.json());
     "/graphql",
     graphqlHTTP((req,res) => {
       const accessToken=req.cookies.accessToken;
-      console.log(accessToken)
       let user = null;
       const secret=process.env.ACCESS_TOKEN_SECRET;
         if(accessToken)
           try{
             user = jwt.verify(accessToken,secret);
-            req.user=user;
           }catch(err){
             user = null;
         }
