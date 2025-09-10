@@ -29,23 +29,27 @@ createRoleSchema=Joi.object({
 });
 
 updateRoleSchema=Joi.object({
-    id:Joi.number().integer().required,
+    id:Joi.number().integer().required(),
     name:Joi.string(),
     permission_ids:Joi.array(),
     resource_ids: Joi.array()
 }).external( async(input)=>{
-    const role=await Role.query().findOne({name:input.name.trim()});
+    const role=await Role.query().findOne({name:input.name.trim().toLowerCase()});
+    
     if(role){
+        if(role.name=="admin"){
+            throw new Error("Can't modify the super admin role ");
+        }
         throw new Error("The role already exists");
     }
     const existingPerms=await Permission.query();
-    const validPermIds=input.permisson_ids.filter(id=> existingPerms.map(perm=>perm.id).includes(parceInt(id)));
-    if(validPermIds.length==0){
+    const validPermIds=input.permisson_ids?.filter(id=> existingPerms.map(perm=>perm.id).includes(parceInt(id)));
+    if(validPermIds?.length==0){
         throw new Error("No valid permission id provided");
     }
     const existingResources=await Resource.query();
-    const validResourceIds=input.resource_ids.filter( id=> existingResources.map(res=>res.id).includes(parseInt(id)));
-    if(validResourceIds.length==0){
+    const validResourceIds=input.resource_ids?.filter( id=> existingResources.map(res=>res.id).includes(parseInt(id)));
+    if(validResourceIds?.length==0){
         throw new Error("No valid resource id provided");
     }
 });
@@ -56,6 +60,9 @@ deleteRoleSchema=Joi.object({
     const role=await Role.query().findById(id);
     if(!role){
         throw new Error(' The role does not exist')
+    }
+    if(role.name=="admin"){
+        throw new Error(' Can\'delete the super admin role')
     }
 })
 
