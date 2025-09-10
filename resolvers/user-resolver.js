@@ -77,7 +77,7 @@ const userResolver = {
             }).returning('*');
            
             } catch(err){
-                throw new Error("Error while creating the user: " + err.message);
+                throw new Error(`Error while creating the user: ${err.message}`);
             }
         },
         
@@ -99,7 +99,7 @@ const userResolver = {
                 return user
             }
             catch(err){
-                throw new Error("Error while updating the user: " + err.message);
+                throw new Error(`Error while updating the user: ${err.message} `);
             }
         },
         
@@ -117,7 +117,7 @@ const userResolver = {
                 return user;
             }
             catch(err){
-                throw new Error("Error while deleting the user: " + err.message);
+                throw new Error(`Error while deleting the user: ${err.message}`);
             }
         },
 
