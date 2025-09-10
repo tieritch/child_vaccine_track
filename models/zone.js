@@ -12,7 +12,7 @@ module.exports=class Zone extends Model{
             
             enrollments:{
                 relation:  Model.ManyToManyRelation,
-                modelClass: require('./enrollment'),
+                modelClass: require('./child'),
                 join:{
                     from:"zones.id",
                     through:{
