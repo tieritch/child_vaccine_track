@@ -22,7 +22,7 @@ const contrySDL=
     extend type Mutation {
         createContry(input: ContryInput!):Contry
         updateContry(input: ContryUpdateInput!):Contry
-        deleteContry(id:ID!): Contry
+        deleteContry(id:ID!): Country
     }
 
 `
