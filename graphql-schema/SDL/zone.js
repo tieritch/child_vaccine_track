@@ -7,6 +7,7 @@ const zoneSDL=
 
     input ZoneInput {
         name: String!
+        country_id: String!
     }
     
     input ZoneUpdateInput {
