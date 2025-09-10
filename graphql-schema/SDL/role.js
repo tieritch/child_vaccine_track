@@ -3,7 +3,7 @@ const roleSDL = `
     id: ID!
     name: String!
   }
-
+  
   input RoleInput {
     name: String!
     permission_ids: [ID!]!
@@ -13,7 +13,8 @@ const roleSDL = `
   input UpdateRoleInput {
     name: String
     permission_ids:[ID!]
-    resources_ids:[ID!]!
+    resources_ids:[ID!]
+    id:ID!
   }
   
   extend type Query {
@@ -24,6 +25,7 @@ const roleSDL = `
   extend type Mutation {
     createRole(input: RoleInput): Role
     deleteRole(id:ID!): Role
+    updateRole(input: UpdateRoleInput): Role
   }
 `;
 
