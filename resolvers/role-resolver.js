@@ -1,7 +1,7 @@
 const Role = require("../models/role");
 //const Resource = require("../models/resource");
 //const Permission=require('../models/permission');
-const {formatJoiError,isAuthenticated}=require('../helpers');
+const {formatJoiError,isAuthenticated,withTransaction}=require('../helpers');
 const {createRoleSchema,
     updateRoleSchema,
     deleteRoleSchema,}=require('../joi-schema');
@@ -32,29 +32,25 @@ const roleResolver={
             catch (err) {
                 throw formatJoiError(err);
             }
-            const trx=await Role.startTransaction();
-            try{
+           return await withTransaction(Role, async(trx)=>{
                 const role= await Role.query(trx).insert({
-                name:input.name }).returning('*');
-                const rows=[];
-                for (const permission_id of validInput.permission_ids) {
-                    for (const resource_id of validInput.resource_ids) {
-                        rows.push({
-                            role_id: role.id,
-                            permission_id,
-                            resource_id,
-                        })
+                    name:input.name }).returning('*');
+                    const rows=[];
+                    for (const permission_id of validInput.permission_ids) {
+                        for (const resource_id of validInput.resource_ids) {
+                            rows.push({
+                                role_id: role.id,
+                                permission_id,
+                                resource_id,
+                            })
+                        }
                     }
-                }
-                await trx('roles_permissions_resources').insert(rows);
-                await trx.commit();
+                    trx('roles_permissions_resources').insert(rows);        
+                    
+                    return role;
+               
+            }, "Error while creating the role" )
                 
-                return role;
-           
-            } catch(err){
-                await trx.rollback();
-                throw new Error("Error while creating the role: " + err.message);
-            }
         },
 
     deleteRole: async(_,{id},context)=>{
@@ -66,11 +62,41 @@ const roleResolver={
         catch(err){
             throw formatJoiError(err);
         }
-        console.log('input del')
-        const role=await Role.query().findById(id);
-        await role.$relatedQuery('permissions').unrelate();
-        return await Role.query().deleteById(id).returning('*'); 
-    }}
+        
+        return await withTransaction(Role, async(trx)=>{
+        
+            const role=await Role.query().findById(id);
+            await role.$relatedQuery('permissions').unrelate();
+            return await Role.query().deleteById(id).returning('*'); 
+        }, "Error while deleting the role")
+        
+    },
+
+    updateRole: async(_,{input},context)=>{
+        
+        isAuthenticated(context);
+        try{
+        
+            await updateRoleSchema.validateAsync(input,{abortEarly:false})
+        }
+        catch(err){
+            throw formatJoiError(err);
+        }
+
+        try{
+            console.log(input)
+            let roleNoId={...input};
+            delete roleNoId.id;
+            console.log(roleNoId)
+             const role=await Role.query().patch(roleNoId).where({id:input.id}).returning('*').first();
+             return role;
+        }
+        catch(err){
+            throw new Error(' Error while updating the role!! ')
+        }
+    }
+},
+
 }
 
 module.exports=roleResolver;
