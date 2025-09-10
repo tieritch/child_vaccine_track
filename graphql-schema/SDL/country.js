@@ -1,30 +1,30 @@
-const contrySDL=
+const countrySDL=
 `
-    type Contry {
+    type Country {
         id:ID!
         name: String!
     }
 
-    input ContryInput {
+    input CountryInput {
         name: String!
     }
     
-    input ContryUpdateInput {
+    input CountryUpdateInput {
         name: String
         id: ID!
     }
 
     extend type Query {
-        getContry(id:ID!): Contry
-        Contries: [Contry]
+        getCountry(id:ID!): Country
+        countries: [Country]
     }
 
     extend type Mutation {
-        createContry(input: ContryInput!):Contry
-        updateContry(input: ContryUpdateInput!):Contry
-        deleteContry(id:ID!): Country
+        createCountry(input: CountryInput!):Country
+        updateCountry(input: CountryUpdateInput!):Country
+        deleteCountry(id:ID!): Country
     }
 
 `
 
-module.exports=contrySDL
+module.exports=countrySDL
