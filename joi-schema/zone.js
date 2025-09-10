@@ -1,19 +1,25 @@
 const Joi=require('joi');
 const Zone=require('../models/zone');
+const Country=require('../models/country');
 
 const createZoneSchema=Joi.object({
-    name: Joi.string().required()
+    name: Joi.string().required(),
+    country_id:Joi.number().integer()
 }).external( async(input)=>{
     const zone=await Zone.query().findOne({name:input.name.trim().toLowerCase()});
-    console.log('__________________________________________________________')
-    console.log(zone)
     if(zone){
         throw new Error(' The zone already exists')
+    }
+
+    const country=await Country.query().findById(input.country_id);
+    if(!country){
+        throw new Error('This country ID does not exist')
     }
 })
 
 const updateZoneSchema=Joi.object({
     name:Joi.string(),
+    country_id:Joi.number().integer(),
     id:Joi.number().integer()
 }).external(async(input)=>{
     let zone=await Zone.query().findOne({name:input.name.trim().toLowerCase()});
@@ -23,6 +29,10 @@ const updateZoneSchema=Joi.object({
     zone=await Zone.query().findById(input.id);
     if(!zone){
         throw new Error("the zone ID does not exist")
+    }
+    const country=await Country.query().findById(input.country_id);
+    if(!country){
+        throw new Error('This country ID does not exist')
     }
 });
 

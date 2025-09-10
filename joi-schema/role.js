@@ -59,7 +59,7 @@ deleteRoleSchema=Joi.object({
 }).external( async({id})=>{
     const role=await Role.query().findById(id);
     if(!role){
-        throw new Error(' The role does not exist')
+        throw new Error(' The role ID does not exist')
     }
     if(role.name=="admin"){
         throw new Error(' Can\'delete the super admin role')
