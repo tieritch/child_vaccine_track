@@ -1,11 +1,12 @@
 const Joi=require('joi');
 const User=require('../models/user');
+const bcrypt=require('bcrypt');
 
 const loginSchema=Joi.object({
   username:Joi.string().required(),
   password:Joi.string().required()
 }).external(async(input)=>{
-  let user=await User.findOne({username:input.username});
+  let user=await User.query().findOne({username:input.username});
   if (!user) {
     throw new Error("Invalid credentials");
   }
@@ -53,6 +54,7 @@ const deleteUserSchema=Joi.object({
   id:Joi.number().integer()
 })
   module.exports={
+    loginSchema,
     createUserSchema,
     updateUserSchema,
     deleteUserSchema
