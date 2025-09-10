@@ -21,6 +21,7 @@ const countryResolver={
 
         createCountry: async(_,{input},context)=>{
             
+            isAuthenticated(context);
             try{
                 await createCountrySchema.validateAsync(input,input, { abortEarly: false });
             }
@@ -29,7 +30,6 @@ const countryResolver={
             }
 
             try{
-                isAuthenticated(context);
                 return await Country.query().insert(input).returning('*');
             }
             catch(err){
@@ -37,8 +37,9 @@ const countryResolver={
             }
         },
 
-        deleteCountry: async(_,{id},context)=>{
+        deleteCountry: async(_,{id},context)=>{           
             
+            isAuthenticated(context);
             try{
                 await deleteCountrySchema.validateAsync({id},{abortEarly: false});
             }
@@ -47,7 +48,6 @@ const countryResolver={
             }
 
             try{
-                isAuthenticated(context);
                 return await Country.query().deleteById(id).returning('*');
             }
             catch(err){
@@ -56,7 +56,8 @@ const countryResolver={
         },
 
          updateCountry: async(_,{input},context)=>{
-        
+             
+            isAuthenticated(context);
             try{
                 await updateCountrySchema.validateAsync(input, {abortEarly: false})
             }
