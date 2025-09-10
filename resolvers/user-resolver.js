@@ -5,7 +5,7 @@ const {formatJoiError,isAuthenticated}=require('../helpers');
 const client=require('../redis-client');
 const {createUserSchema,
     updateUserSchema,
-    deleteUserSchema,}=require('../joi-schema');
+    deleteUserSchema,loginSchema}=require('../joi-schema');
 const { exist } = require('joi');
 const userResolver = {
   
@@ -20,9 +20,18 @@ const userResolver = {
     Mutation:{
 
         login:async(_,input,context)=>{
+            try{
+                await loginSchema.validateAsync(input,{abortEarly:false});
+            }
+            catch(err){
+                throw formatJoiError(err);        
+            }
             const res=context.res;
             const user=await User.query().findOne({username:input.username});
-            const accessToken = jwt.sign(user.toJSON(),process.env.ACCESS_TOKEN_SECRET,{expiresIn:'3600s'});
+            if(!user){
+                throw new Error('The user does not exist')
+            }
+            const accessToken = jwt.sign(user.toJSON(),process.env.ACCESS_TOKEN_SECRET,{expiresIn:'7200s'});
             const refreshToken = jwt.sign(user.toJSON(),process.env.REFRESH_TOKEN_SECRET,{expiresIn:'1d'});
  
             const existingToken=await client.get(`refresh_token:${user.id}`);
@@ -56,7 +65,7 @@ const userResolver = {
             } 
             catch (err) {
                 throw formatJoiError(err);
-              }
+            }
             try{
                 console.log(input.operationName)
                 return await User.query().insert({
@@ -81,7 +90,9 @@ const userResolver = {
                 throw formatJoiError(err);        
             }
             try{
-                const user=await User.query().patch(input).where({id:input.id}).returning('*').first();
+                let userNoId= {...input};
+                delete userNoId.id;
+                const user=await User.query().patch(userNoId).where({id:input.id}).returning('*').first();
                 if(!user){
                     throw new Error(`User with id: ${id} not found`)
                 }
