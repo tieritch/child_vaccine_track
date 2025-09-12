@@ -1,8 +1,8 @@
-function isAuthenticated(context){
+function Authenticate(context){
     if(!context.user){
         const error = new Error("Unauthorized");
         error.code = 401;
         throw error;
       }
 }
-module.exports={isAuthenticated}
+module.exports={Authenticate}
