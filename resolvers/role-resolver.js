@@ -35,8 +35,9 @@ const roleResolver={
                 const role= await Role.query(trx).insert({
                     name:input.name }).returning('*');
                     const rows=[];
-                    for (const permission_id of validInput.permission_ids) {
-                        for (const resource_id of validInput.resource_ids) {
+                    if(validInput.permission_id?.length>0 && validInput.resource_id_id?.length)
+                    for (const permission_id of validInput?.permission_ids) {
+                        for (const resource_id of validInput?.resource_ids) {
                             rows.push({
                                 role_id: role.id,
                                 permission_id,
