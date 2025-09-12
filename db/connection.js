@@ -4,8 +4,8 @@ const knexfile=require('./knexfile');
 function db_connect(environment){
     let knexInstance;
     environment=(environment||'development').trim();
-    environment=='development'?
-    knexInstance=knex(knexfile.development):knex(knexfile.production);
+    knexInstance=environment=='development'?
+    knex(knexfile.development):knex(knexfile.production);
     Model.knex(knexInstance);
     console.log('Hello from DB connection');
     console.log(`Environment is ${environment}`)
