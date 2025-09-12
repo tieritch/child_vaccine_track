@@ -6,8 +6,8 @@ const roleSDL = `
   
   input RoleInput {
     name: String!
-    permission_ids: [ID!]!
-    resource_ids:[ID!]!
+    permission_ids: [ID!]
+    resource_ids:[ID!]
   }
  
   input UpdateRoleInput {
@@ -23,9 +23,9 @@ const roleSDL = `
   }
 
   extend type Mutation {
-    createRole(input: RoleInput): Role
-    deleteRole(id:ID!): Role
-    updateRole(input: UpdateRoleInput): Role
+    createRole(input: RoleInput): Role @auth
+    deleteRole(id:ID!): Role @auth
+    updateRole(input: UpdateRoleInput): Role @auth
   }
 `;
 

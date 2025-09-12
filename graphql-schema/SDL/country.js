@@ -20,9 +20,9 @@ const countrySDL=
     }
 
     extend type Mutation {
-        createCountry(input: CountryInput!):Country
-        updateCountry(input: CountryUpdateInput!):Country
-        deleteCountry(id:ID!): Country
+        createCountry(input: CountryInput!):Country @auth
+        updateCountry(input: CountryUpdateInput!):Country @auth
+        deleteCountry(id:ID!): Country @auth
     }
 
 `

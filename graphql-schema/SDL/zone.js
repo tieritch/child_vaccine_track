@@ -23,9 +23,9 @@ const zoneSDL=
     }
 
     extend type Mutation {
-        createZone(input: ZoneInput!):Zone
-        updateZone(input: ZoneUpdateInput!):Zone
-        deleteZone(id:ID!): Zone
+        createZone(input: ZoneInput!):Zone @auth
+        updateZone(input: ZoneUpdateInput!):Zone @auth
+        deleteZone(id:ID!): Zone @auth
     }
 
 `
