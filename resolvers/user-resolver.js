@@ -31,7 +31,7 @@ const userResolver = {
             if(!user){
                 throw new Error('The user does not exist')
             }
-            const accessToken = jwt.sign(user.toJSON(),process.env.ACCESS_TOKEN_SECRET,{expiresIn:'7200s'});
+            const accessToken = jwt.sign(user.toJSON(),process.env.ACCESS_TOKEN_SECRET,{expiresIn:'2h'});
             const refreshToken = jwt.sign(user.toJSON(),process.env.REFRESH_TOKEN_SECRET,{expiresIn:'1d'});
  
             const existingToken=await client.get(`refresh_token:${user.id}`);
