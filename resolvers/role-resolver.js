@@ -1,7 +1,7 @@
 const Role = require("../models/role");
 //const Resource = require("../models/resource");
 //const Permission=require('../models/permission');
-const {formatJoiError,isAuthenticated,withTransaction}=require('../helpers');
+const {formatJoiError,withTransaction}=require('../helpers');
 const {createRoleSchema,
     updateRoleSchema,
     deleteRoleSchema,}=require('../joi-schema');
@@ -24,7 +24,6 @@ const roleResolver={
         
         createRole: async(_,{input},context)=>{
           
-            isAuthenticated(context);
             let validInput={};
             try {
                 validInput=await createRoleSchema.validateAsync(input, { abortEarly: false });
@@ -55,7 +54,6 @@ const roleResolver={
 
     deleteRole: async(_,{id},context)=>{
 
-        isAuthenticated(context);
         try{
             await deleteRoleSchema.validateAsync({id},{abortEarly:false})
         }
@@ -73,8 +71,7 @@ const roleResolver={
     },
 
     updateRole: async(_,{input},context)=>{
-        
-        isAuthenticated(context);
+  
         try{
         
             await updateRoleSchema.validateAsync(input,{abortEarly:false})

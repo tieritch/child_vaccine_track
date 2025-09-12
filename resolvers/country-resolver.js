@@ -1,5 +1,5 @@
 const Country=require('../models/country');
-const {formatJoiError,isAuthenticated}=require('../helpers');
+const {formatJoiError}=require('../helpers');
 const {createCountrySchema,
     updateCountrySchema,
     deleteCountrySchema,}=require('../joi-schema');
@@ -21,7 +21,6 @@ const countryResolver={
 
         createCountry: async(_,{input},context)=>{
             
-            isAuthenticated(context);
             try{
                 await createCountrySchema.validateAsync(input,input, { abortEarly: false });
             }
@@ -38,8 +37,7 @@ const countryResolver={
         },
 
         deleteCountry: async(_,{id},context)=>{           
-            
-            isAuthenticated(context);
+
             try{
                 await deleteCountrySchema.validateAsync({id},{abortEarly: false});
             }
@@ -57,7 +55,6 @@ const countryResolver={
 
          updateCountry: async(_,{input},context)=>{
              
-            isAuthenticated(context);
             try{
                 await updateCountrySchema.validateAsync(input, {abortEarly: false})
             }

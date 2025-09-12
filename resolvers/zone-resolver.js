@@ -1,6 +1,6 @@
 
 const Zone = require("../models/zone");
-const {formatJoiError,isAuthenticated}=require('../helpers');
+const {formatJoiError}=require('../helpers');
 const {createZoneSchema,
     updateZoneSchema,
     deleteZoneSchema,}=require('../joi-schema');
@@ -22,7 +22,6 @@ const zoneResolver={
 
         createZone: async(_,{input}, context)=>{
 
-            isAuthenticated(context);
             try{
                 await createZoneSchema.validateAsync(input, {abortEarly: false});
             }
@@ -41,7 +40,6 @@ const zoneResolver={
 
         deleteZone: async(_, {id},context)=>{
             
-            isAuthenticated(context);
             try{
                 await deleteZoneSchema.validateAsync({id}, {abortEarly:false});
             }
@@ -69,7 +67,6 @@ const zoneResolver={
 
         updateZone: async(_,{input})=>{
             
-            isAuthenticated(context);
             try{
                 await updateZoneSchema.validateAsync(input, {abortEarly:false})
             }

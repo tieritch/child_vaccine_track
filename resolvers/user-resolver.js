@@ -1,7 +1,7 @@
 const bcrypt=require('bcrypt');
 const jwt=require('jsonwebtoken');
 const User = require('../models/user');
-const {formatJoiError,isAuthenticated}=require('../helpers');
+const {formatJoiError}=require('../helpers');
 const client=require('../redis-client');
 const {createUserSchema,
     updateUserSchema,
@@ -58,8 +58,7 @@ const userResolver = {
         },
         
         createUser: async (_,{input},context) => {
-        
-            isAuthenticated(context);           
+                
             try {
                 await createUserSchema.validateAsync(input, { abortEarly: false });
             } 
@@ -82,7 +81,7 @@ const userResolver = {
         },
         
         updateUser: async(_,{input},context)=>{
-            isAuthenticated(context);
+
             try{
                 await updateUserSchema.validateAsync(input,{abortEarly:false});
             }
