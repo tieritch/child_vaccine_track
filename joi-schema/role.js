@@ -14,15 +14,15 @@ createRoleSchema=Joi.object({
     }
     const existingPerms=await Permission.query();
 
-    const validPermIds=input.permission_ids.filter(id=> existingPerms.map(perm=>perm.id).includes(parseInt(id)));
-    if(validPermIds.length==0){
+    const validPermIds=input.permission_ids?.filter(id=> existingPerms.map(perm=>perm.id).includes(parseInt(id)));
+    if(validPermIds?.length==0){
         throw new Error("No valid permission id provided");
     } 
     input.permission_ids=validPermIds;// replace all ids with only valid  ids
 
     const existingResources=await Resource.query();
-    const validResourceIds=input.resource_ids.filter( id=> existingResources.map(res=>res.id).includes(parseInt(id)));
-    if(validResourceIds.length==0){
+    const validResourceIds=input.resource_ids?.filter( id=> existingResources.map(res=>res.id).includes(parseInt(id)));
+    if(validResourceIds?.length==0){
         throw new Error("No valid resource id provided");
     }
     input.resource_ids=validResourceIds; // replace all ids with only valid  ids
