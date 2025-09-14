@@ -1,12 +1,18 @@
 
 
 const userSDL = `
+  type Role {
+    id: ID!
+    name: String!
+  }
   type User {
     id: ID!
     firstname: String!
     lastname: String!
     email: String!
     username: String!
+    roles:[Role!]!
+    
   }
  
   type AuthPayload {
