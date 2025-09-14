@@ -6,7 +6,7 @@ const userSDL = `
     firstname: String!
     lastname: String!
     email: String!
-    password: String!
+    username: String!
   }
  
   type AuthPayload {
@@ -21,7 +21,7 @@ const userSDL = `
     email: String!
     password: String!
     username: String!
-    role_id: String!
+    role_ids: [ID!]!
   }
 
   input UpdateUserInput{
