@@ -1,7 +1,7 @@
 const bcrypt=require('bcrypt');
 const jwt=require('jsonwebtoken');
 const User = require('../models/user');
-const {formatJoiError}=require('../helpers');
+const {formatJoiError,withTransaction}=require('../helpers');
 const client=require('../redis-client');
 const {createUserSchema,
     updateUserSchema,
@@ -58,26 +58,50 @@ const userResolver = {
         },
         
         createUser: async (_,{input},context) => {
-                
+            let validInput={}    
             try {
-                await createUserSchema.validateAsync(input, { abortEarly: false });
+                validInput=await createUserSchema.validateAsync(input, { abortEarly: false });
             } 
             catch (err) {
                 throw formatJoiError(err);
             }
-            try{
+           /* try{
                 console.log(input.operationName)
-                return await User.query().insert({
+                
+                const user= await User.query().insert({
                 firstname:input.firstname,
                 lastname: input.lastname,
                 email:input.email,
                 username:input.username,
                 password:await bcrypt.hash(input.password,10)
             }).returning('*');
+             user.$relatedQuery('roles').relate();
+             return user;
            
             } catch(err){
                 throw new Error(`Error while creating the user: ${err.message}`);
-            }
+            }*/
+            return await withTransaction(User,async(trx)=>{
+            
+                const user= await User.query().insert({
+                firstname:validInput.firstname,
+                lastname: validInput.lastname,
+                email:validInput.email,
+                username:validInput.username,
+                password:await bcrypt.hash(validInput.password,10)
+                }).returning('*');
+                 
+                let userRoles=[];
+                if(validInput.role_ids.length>0){
+                    for( const roleId of input.role_ids){
+                        userRoles.push({user_id:user.id,role_id:roleId});
+                    }
+                   await trx('users_roles').insert(userRoles);
+                }
+             return user;
+          },
+          "Error while creating the user");
+
         },
         
         updateUser: async(_,{input},context)=>{
