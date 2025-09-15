@@ -1,7 +1,19 @@
 const roleSDL = `
+ 
+  type Resource{
+    name: String!
+    id: ID!
+  }
+  type Permission {
+    name: String!
+    id: ID!
+    resources:[Resource!]
+  }
+
   type Role {
     id: ID!
     name: String!
+    permissions:[Permission!]!
   }
   
   input RoleInput {
@@ -13,7 +25,7 @@ const roleSDL = `
   input UpdateRoleInput {
     name: String
     permission_ids:[ID!]
-    resources_ids:[ID!]
+    resource_ids:[ID!]
     id:ID!
   }
   
