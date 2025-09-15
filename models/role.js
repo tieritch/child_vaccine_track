@@ -30,7 +30,7 @@ module.exports=class Role extends Model{
           to:'permissions.id',
         },
       },
-      resources:{
+     /* resources:{
         relation:Model.ManyToManyRelation,
         modelClass: require('./resource'),
         join:{
@@ -41,8 +41,8 @@ module.exports=class Role extends Model{
           },
           to:'resources.id',
         },
-      },
-    };
+      },*/
+    }
   }
   $beforeInsert(){
     if(this.name){
