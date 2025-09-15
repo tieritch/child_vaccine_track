@@ -12,11 +12,14 @@ const roleResolver={
     Query:{
         
         getRole: async(_, {id} )=>{
-            return await Role.query().findById(id);
+            return await Role.query()
+            .findById(id)
+            .withGraphJoined('permissions.resources')
+           
         },
         
         roles: async()=>{
-            return await Role.query();
+            return await Role.query().withGraphJoined('permissions.resources');
         }
     },
 
@@ -35,8 +38,6 @@ const roleResolver={
                 const role= await Role.query(trx).insert({
                     name:input.name }).returning('*');
                     const rows=[];
-                    console.log('permission_ids', validInput.permission_ids);
-                    console.log('resource_ids', validInput.resource_ids);
                     if(validInput.permission_ids?.length>0 && validInput.resource_ids?.length>0)
                     for (const permission_id of validInput?.permission_ids) {
                         for (const resource_id of validInput?.resource_ids) {
@@ -68,8 +69,8 @@ const roleResolver={
         return await withTransaction(Role, async(trx)=>{
         
             const role=await Role.query().findById(id);
-            await role.$relatedQuery('permissions').unrelate();
-            return await Role.query().deleteById(id).returning('*'); 
+            await role.$relatedQuery('permissions',trx).unrelate();
+            return await Role.query(trx).deleteById(id).returning('*'); 
         }, "Error while deleting the role")
         
     },
@@ -78,23 +79,46 @@ const roleResolver={
   
         try{
         
-            await updateRoleSchema.validateAsync(input,{abortEarly:false})
+            validInput=await updateRoleSchema.validateAsync(input,{abortEarly:false})
         }
         catch(err){
             throw formatJoiError(err);
         }
 
-        try{
-            console.log(input)
-            let roleNoId={...input};
-            delete roleNoId.id;
-            console.log(roleNoId)
-             const role=await Role.query().patch(roleNoId).where({id:input.id}).returning('*').first();
-             return role;
-        }
-        catch(err){
-            throw new Error(' Error while updating the role!! ')
-        }
+      
+            return withTransaction(Role, async(trx)=>{
+                let roleNoId={...validInput};
+                delete roleNoId.id;
+                if(validInput.permission_ids && validInput.permission_ids.length>0)
+                    delete roleNoId.permission_ids;
+                if(validInput.resource_ids && validInput.resource_ids.length>0)
+                    delete roleNoId.resource_ids
+                 const role=await Role.query(trx).patch(roleNoId).where({id:input.id}).returning('*').first()// here the user update the role its self 
+                                                                                                             // and we get the updated role           
+                                    ||
+                            await Role.query().findById(validInput.id) // Here the user does not update the role itself, he prefers to replace only the  permissions 
+                            // and resources associated to the role with the new ones, this task is performed below, 
+                 const rows=[];
+                if(validInput.permission_ids?.length>0 && validInput.resource_ids?.length>0){
+                        for (const permission_id of validInput?.permission_ids) {
+                            for (const resource_id of validInput?.resource_ids) {
+                                rows.push({
+                                    role_id: validInput.id,
+                                    permission_id,
+                                    resource_id,
+                                })
+                            }
+                        }
+                    }
+                    if(rows.length>0){
+                     await trx('roles_permissions_resources').del({role_id:validInput.id});   
+                     await trx('roles_permissions_resources').insert(rows); 
+                    }     
+                
+                 return role;
+            },"Error while updating the role");
+           
+      
     }
 },
 
