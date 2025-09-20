@@ -44,7 +44,7 @@ const userResolver = {
             res
             .cookie("accessToken", accessToken, {
                 httpOnly: true,
-                maxAge: 60 * 60 * 1000,
+                maxAge: 2*60 * 60 * 1000,
                 secure: false,
                 sameSite: "Lax",
             })
@@ -58,6 +58,7 @@ const userResolver = {
         },
         
         createUser: async (_,{input},context) => {
+            
             let validInput={}    
             try {
                 validInput=await createUserSchema.validateAsync(input, { abortEarly: false });
@@ -83,7 +84,7 @@ const userResolver = {
             }*/
             return await withTransaction(User,async(trx)=>{
             
-                const user= await User.query().insert({
+                const user= await User.query(trx).insert({
                 firstname:validInput.firstname,
                 lastname: validInput.lastname,
                 email:validInput.email,
@@ -92,8 +93,9 @@ const userResolver = {
                 }).returning('*');
                  
                 let userRoles=[];
+                console.log('validInput:',validInput)
                 if(validInput.role_ids.length>0){
-                    for( const roleId of input.role_ids){
+                    for( const roleId of validInput.role_ids){
                         userRoles.push({user_id:user.id,role_id:roleId});
                     }
                    await trx('users_roles').insert(userRoles);
@@ -117,7 +119,7 @@ const userResolver = {
                 delete userNoId.id;
                 const user=await User.query().patch(userNoId).where({id:input.id}).returning('*').first();
                 if(!user){
-                    throw new Error(`User with id: ${id} not found`)
+                    throw new Error(`User with id: ${input.id} not found`)
                 }
                 return user
             }
@@ -133,15 +135,23 @@ const userResolver = {
             catch(err){
                 throw formatJoiError(err)
             }
-            try{
-                const user=await User.query().deleteById(id);
+           // try{
+               // const user=await User.query().deleteById(id);
+               // if(!user)
+                 //   throw new Error(`User with id: ${id} not found`);
+                //return user;
+            //}
+           // catch(err){
+                //throw new Error(`Error while deleting the user: ${err.message}`);
+            //}
+            return await withTransaction( User, async(trx)=>{
+                 
+                await trx('users_roles').where({user_id: id}).delete();
+                const user=await User.query(trx).deleteById(id);
                 if(!user)
                     throw new Error(`User with id: ${id} not found`);
                 return user;
-            }
-            catch(err){
-                throw new Error(`Error while deleting the user: ${err.message}`);
-            }
+            }, ' Error while deleting the user ')
         },
 
     }

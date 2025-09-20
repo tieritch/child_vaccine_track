@@ -5,6 +5,7 @@ const {formatJoiError,withTransaction}=require('../helpers');
 const {createRoleSchema,
     updateRoleSchema,
     deleteRoleSchema,}=require('../joi-schema');
+const { valid } = require("joi");
 //const Permission = require("../models/permission");
 
 const roleResolver={
@@ -14,8 +15,7 @@ const roleResolver={
         getRole: async(_, {id} )=>{
             return await Role.query()
             .findById(id)
-            .withGraphJoined('permissions.resources')
-           
+            .withGraphJoined('permissions.resources')           
         },
         
         roles: async()=>{
@@ -48,6 +48,7 @@ const roleResolver={
                             })
                         }
                     }
+                    console.log("created role:",role)
                     if(rows.length>0)
                      await trx('roles_permissions_resources').insert(rows);        
                     
@@ -94,10 +95,10 @@ const roleResolver={
                 if(validInput.resource_ids && validInput.resource_ids.length>0)
                     delete roleNoId.resource_ids
                  const role=await Role.query(trx).patch(roleNoId).where({id:input.id}).returning('*').first()// here the user update the role its self 
-                                                                                                             // and we get the updated role           
+                                        // and we get the updated role           
                                     ||
                             await Role.query().findById(validInput.id) // Here the user does not update the role itself, he prefers to replace only the  permissions 
-                            // and resources associated to the role with the new ones, this task is performed below, 
+                            // and resources associated to the role with the new ones. This task is performed below, 
                  const rows=[];
                 if(validInput.permission_ids?.length>0 && validInput.resource_ids?.length>0){
                         for (const permission_id of validInput?.permission_ids) {
@@ -111,7 +112,8 @@ const roleResolver={
                         }
                     }
                     if(rows.length>0){
-                     await trx('roles_permissions_resources').del({role_id:validInput.id});   
+                     await trx('roles_permissions_resources').where({role_id:validInput.id}).delete(); 
+            
                      await trx('roles_permissions_resources').insert(rows); 
                     }     
                 
