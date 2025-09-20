@@ -13,7 +13,8 @@ module.exports=class Permission extends Model{
           from:'permissions.id',
           through:{
             from:'roles_permissions_resources.permission_id',
-            to:'roles_permissions_recources.role_id',
+            to:'roles_permissions_resources.role_id',   
+            extra:['permission_id','role_id'],
           },
           to:'roles.id',
         },
@@ -25,7 +26,8 @@ module.exports=class Permission extends Model{
           from:"permissions.id",
           through:{
             from:"roles_permissions_resources.permission_id",
-            to:"roles_permissions_resources.resource_id"
+            to:"roles_permissions_resources.resource_id",
+            extra:['role_id'],
           },
           to:"resources.id"
         }
