@@ -46,11 +46,11 @@ app.use(express.json());
           }catch(err){
             user = null;
         }
-  
-      return {
+      
+        return {
         schema,
         graphiql: true,
-        context: { user,res }, // disponible dans resolvers
+        context: { user,res}, // disponible dans resolvers
         customFormatErrorFn: (err) => {
           console.error("GraphQL Error:", err.message);
           return {
@@ -61,23 +61,7 @@ app.use(express.json());
       };
     })
   );
-/*app.use((err, req, res, next) => {
-
-  console.error(err.message);
-  const status = err.status || 500;
-
-  // If it's a validation error
-  if (err.details) {
-    return res.status(status).json({
-      error: 'Validation failed',
-      details: err.details,
-    });
-  }
-  // Otherwise, a generic server error
-  res.status(status).json({
-    error: err.message || 'Internal Server Error',
-  });
-});*/
 app.listen(port,()=>{
     console.log(`Node server listening on the port ${port}`)
 })
+
