@@ -20,9 +20,9 @@ const countrySDL=
     }
 
     extend type Mutation {
-        createCountry(input: CountryInput!):Country @auth
-        updateCountry(input: CountryUpdateInput!):Country @auth
-        deleteCountry(id:ID!): Country @auth
+        createCountry(input: CountryInput!):Country @auth  @rbac( actions:["READ","CREATE"], resources:["countries"])
+        updateCountry(input: CountryUpdateInput!):Country @auth  @rbac( actions:["READ","UPDATE"], resources:["countries"])
+        deleteCountry(id:ID!): Country @auth  @rbac( actions:["READ","DELETE"], resources:["countries"])
     }
 
 `
