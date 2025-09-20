@@ -35,9 +35,9 @@ const roleSDL = `
   }
 
   extend type Mutation {
-    createRole(input: RoleInput): Role @auth
-    deleteRole(id:ID!): Role @auth
-    updateRole(input: UpdateRoleInput): Role @auth
+    createRole(input: RoleInput): Role @auth @rbac( actions:["READ","CREATE"], resources:["roles"])
+    deleteRole(id:ID!): Role @auth @rbac( actions:["READ","DELETE"], resources:["roles"])
+    updateRole(input: UpdateRoleInput): Role @auth  @rbac(actions:["READ","UPDATE"], resources:["roles"])
   }
 `;
 

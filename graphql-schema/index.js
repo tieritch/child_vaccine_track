@@ -2,7 +2,7 @@ const {makeExecutableSchema}=require('@graphql-tools/schema');
 const {mergeTypeDefs,mergeResolvers}=require('@graphql-tools/merge');
 const { mapSchema, getDirective, MapperKind } = require('@graphql-tools/utils');
 const { defaultFieldResolver } = require('graphql');
-const {authenticate}=require('../helpers');
+const {authenticate,accessByRole}=require('../helpers');
 
 const baseTypeDefs=require('./SDL/base');
 const directiveSDL=require('./SDL/directive');
@@ -22,15 +22,35 @@ let schema = makeExecutableSchema({
 
 schema = mapSchema(schema, {
   [MapperKind.OBJECT_FIELD]: (fieldConfig) => {
-    const directive = getDirective(schema, fieldConfig, 'auth')?.[0];
-    if (directive) {
+    
+    const authDirective = getDirective(schema, fieldConfig, 'auth')?.[0];
+    const rbacDirective = getDirective(schema, fieldConfig, 'rbac')?.[0];
+
+    // Ne wrap qu'une seule fois
+    if (authDirective || rbacDirective) {
       const { resolve = defaultFieldResolver } = fieldConfig;
+
       fieldConfig.resolve = async (source, args, context, info) => {
-        authenticate(context);
+        // Vérifier AUTH
+        if (authDirective) {
+          console.log('inside AUTH');
+          authenticate(context);
+        }
+
+        // Vérifier RBAC
+        if (rbacDirective) {
+          console.log('inside RBAC');
+          let actions = rbacDirective.actions.map(a => a.trim().toUpperCase());
+          let resources = rbacDirective.resources.map(r => r.trim().toLowerCase());
+          await accessByRole(actions, resources, context);
+        }
+
+        // Puis exécuter le resolver original
         return resolve(source, args, context, info);
       };
     }
+
     return fieldConfig;
-  }
+  },
 });
 module.exports=schema;
