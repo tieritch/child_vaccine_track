@@ -15,7 +15,6 @@ app.use(cors({
 }));
 dotenv.config();
 const knexInstance=require('./db/connection');
-const { access } = require('../../school_soft/backend/utils/gen_token');
 console.log(process.env.PORT)
 const port=process.env.PORT||8000;
 app.use(express.json());
