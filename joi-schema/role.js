@@ -13,7 +13,7 @@ createRoleSchema=Joi.object({
             throw new Error('resource IDs required');
         }
     }
-    const role=await Role.query().findOne({name:input.name.trim()});
+    const role=await Role.query().findOne({name:input.name.trim().toLowerCase()});
     if(role){
         throw new Error("The role already exists");
     }
@@ -45,6 +45,10 @@ updateRoleSchema=Joi.object({
         }
     }
     let role=null;
+    role=await Role.query().findById(input.id);
+    if(!role){
+        throw new Error("The role ID does not exist");
+    }
     if(input.name){
         role=await Role.query().findOne({name:input.name.trim().toLowerCase()});
     }

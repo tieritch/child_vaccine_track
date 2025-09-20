@@ -37,9 +37,21 @@ const createUserSchema = Joi.object({
     if (exists) throw new Error("Email in use");
     exists=await User.query().findOne({username:input.username});
     if (exists) throw new Error("Username in use");
-    const roles=await Role.query();
+    let roles=await Role.query();
     if(input.role_ids && input.role_ids.length>0){
     const validRoleIds=input.role_ids.filter(roleId=>roles.map(role=>role.id).includes(parseInt(roleId)));
+
+    if(validRoleIds.length==0){
+      throw new Error('Provided a wrong role ID ');
+    }
+    
+    roles=await User.relatedQuery('roles').for(input.role_ids);
+
+    const role=roles.find(role=>role.name.trim().toLowerCase()=="admin");
+    if(role){
+      throw new Error('This role ID can\'t be granted to any one else than the superadmin user')
+    }
+    
     input.role_ids=validRoleIds
     }
 })
