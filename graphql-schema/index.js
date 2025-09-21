@@ -10,11 +10,12 @@ const userSDL=require('./SDL/user');
 const roleSDL=require('./SDL/role');
 const zoneSDL=require('./SDL/zone');
 const countrySDL=require('./SDL/country');
+const parentSDL=require('./SDL/parent');
 const childSDL=require('./SDL/child');
 
-const typeDefs=mergeTypeDefs([baseTypeDefs,directiveSDL,userSDL,roleSDL,zoneSDL,countrySDL,childSDL]);
-const {userResolver,roleResolver, zoneResolver,countryResolver,childResolver}=require('../resolvers')
-const resolvers = mergeResolvers([userResolver,roleResolver,zoneResolver,countryResolver,childResolver]);
+const typeDefs=mergeTypeDefs([baseTypeDefs,directiveSDL,userSDL,roleSDL,zoneSDL,countrySDL,parentSDL,childSDL]);
+const {userResolver,roleResolver, zoneResolver,countryResolver,parentResolver,childResolver}=require('../resolvers')
+const resolvers = mergeResolvers([userResolver,roleResolver,zoneResolver,countryResolver,parentResolver,childResolver]);
 
 let schema = makeExecutableSchema({
     typeDefs,
