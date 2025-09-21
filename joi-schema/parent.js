@@ -10,7 +10,7 @@ const customCheck=async(input)=>{
     let parent={};
     
     if(input.id){
-        const parent=await Parent.query().findById(id);
+        const parent=await Parent.query().findById(input.id);
         if(!parent){
             throw new Error('The parent ID does not exist');
         } 
@@ -37,7 +37,7 @@ const createParentSchema=Joi.object({
     lastname: Joi.string(),
     email: Joi.string().email(),
     phone_number: Joi.string()
-        .phoneNumber({defaultCountry: 'BI', format: 'International'})
+        .phoneNumber({defaultCountry: 'BI', format: 'international'})
 })
 .external(async(input)=>{
 
@@ -50,7 +50,7 @@ const updateParentSchema=Joi.object({
     lastname: Joi.string(),
     email: Joi.string().email(),
     phone_number: Joi.string()
-        .phoneNumber({defaultCountry: 'BI', format: 'International'})
+        .phoneNumber({defaultCountry: 'BI', format: 'international'})
 })
 .external(async(input)=>{
     
