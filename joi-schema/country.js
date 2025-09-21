@@ -17,6 +17,10 @@ const deleteCountrySchema=Joi.object({
     if(!country){
         throw new Error(' The country ID does not exist')
     }
+    const zone=await Country.relatedQuery('zones').for(id).first();
+    if(zone){
+        throw new Error('Cannot delete country: zones exist for this country'); 
+    }
 
 })
 
