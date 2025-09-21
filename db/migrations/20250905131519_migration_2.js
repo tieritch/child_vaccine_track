@@ -27,7 +27,7 @@ exports.down = async function(knex) {
     await knex.schema
         
         .alterTable('children',(table)=>{
-            table.addColumn('zone_id')
+            table.integer('zone_id')
         })
         
         .dropTableIfExists('zone_child_enrollments')

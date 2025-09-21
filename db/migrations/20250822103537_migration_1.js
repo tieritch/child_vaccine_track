@@ -103,7 +103,7 @@ exports.up = function(knex) {
             table.string('address').notNullable();
             table.integer('zone_id').references('id').inTable('zones');
             table.integer('parent_id').references('id').inTable('parents');
-            table.integer('sex_id').references('id').inTable('parents');
+            table.integer('sex_id').references('id').inTable('sexes');
             table.timestamps(true,true);
             table.integer('by');
         })
