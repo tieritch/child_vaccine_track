@@ -10,7 +10,7 @@ module.exports=class Zone extends Model{
        
         return {
             
-            enrollments:{
+            childEnrolls:{
                 relation:  Model.ManyToManyRelation,
                 modelClass: require('./child'),
                 join:{
