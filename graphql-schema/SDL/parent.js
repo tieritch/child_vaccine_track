@@ -27,13 +27,13 @@ const parentSDL=`
     }
     
     extend type Query{
-        getParent(id:ID!): Parent!
-        parents:[Parent!]!
+        getParent(id:ID!): Parent
+        parents:[Parent!]
     } 
     
     extend type Mutation{
-        createParent(input: ParInput): Parent! @auth  @rbac( actions:["READ","CREATE"], resources:["parents"])
-        updateParent(input: UpdParInput): Parent!  @auth @rbac( actions:["READ","UPDATE"], resources:["parents"])
+        createParent(input: ParInput): Parent @auth  @rbac( actions:["READ","CREATE"], resources:["parents"])
+        updateParent(input: UpdParInput): Parent  @auth @rbac( actions:["READ","UPDATE"], resources:["parents"])
         deleteParent(id:ID): Parent  @auth @rbac( actions:["READ","DELETE"], resources:["parents"])
     }
 `
