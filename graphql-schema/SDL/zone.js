@@ -11,7 +11,7 @@ const zoneSDL=
         country_id: ID!
     }
     
-    input ZoneUpdateInput {
+    input UpdZoneInput {
         name: String
         country_id: String
         id: ID!
@@ -24,7 +24,7 @@ const zoneSDL=
 
     extend type Mutation {
         createZone(input: ZoneInput!):Zone @auth  @rbac( actions:["READ","CREATE"], resources:["zones"])
-        updateZone(input: ZoneUpdateInput!):Zone @auth @rbac( actions:["READ","UPDATE"], resources:["zones"])
+        updateZone(input: UpdZoneInput!):Zone @auth @rbac( actions:["READ","UPDATE"], resources:["zones"])
         deleteZone(id:ID!): Zone @auth  @rbac( actions:["READ","DELETE"], resources:["zones"])
     }
 

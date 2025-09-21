@@ -30,7 +30,7 @@ const userSDL = `
     role_ids: [ID!]!
   }
 
-  input UpdateUserInput{
+  input UpdUserInput{
     firstname: String
     lastname:String
     email: String
@@ -49,7 +49,7 @@ const userSDL = `
   extend type Mutation {
     createUser(input: UserInput!): User @auth @rbac(actions: ["READ","CREATE"],resources: ["users"])
     login(username: String!, password: String!): AuthPayload!
-    updateUser(input: UpdateUserInput!):User @auth  @rbac(actions: ["READ","UPDATE"],resources: ["users"])
+    updateUser(input: UpdUserInput!):User @auth  @rbac(actions: ["READ","UPDATE"],resources: ["users"])
     deleteUser(id: ID!): User @auth @rbac(actions: ["READ","DELETE"],resources: ["users"])
   }
 `;

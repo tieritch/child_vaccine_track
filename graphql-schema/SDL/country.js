@@ -9,7 +9,7 @@ const countrySDL=
         name: String!
     }
     
-    input CountryUpdateInput {
+    input UpdCountryInput {
         name: String
         id: ID!
     }
@@ -21,7 +21,7 @@ const countrySDL=
 
     extend type Mutation {
         createCountry(input: CountryInput!):Country @auth  @rbac( actions:["READ","CREATE"], resources:["countries"])
-        updateCountry(input: CountryUpdateInput!):Country @auth  @rbac( actions:["READ","UPDATE"], resources:["countries"])
+        updateCountry(input: UpdCountryInput!):Country @auth  @rbac( actions:["READ","UPDATE"], resources:["countries"])
         deleteCountry(id:ID!): Country @auth  @rbac( actions:["READ","DELETE"], resources:["countries"])
     }
 
