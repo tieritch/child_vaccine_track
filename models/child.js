@@ -34,23 +34,5 @@ module.exports=class Child extends Model{
          } 
      }
 
-     $beforeInsert(){
-      if(this.firstname){
-        this.firstname=this.firstname.trim().toLowerCase();
-      }
-      if(lastname){
-         this.lastname=this.lastname.trim().toLowerCase();
-      }
-      if(sex){
-         this.sex=this.sex.trim().toLowerCase();
-      }
-    }
-    $beforeUpdate(){
-      if(this.firstname){
-         this.firstname=this.firstname.trim().toLowerCase();
-       }
-       if(lastname){
-          this.lastname=this.lastname.trim().toLowerCase();
-       }
-    }
+    
 }
