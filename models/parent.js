@@ -20,4 +20,16 @@ module.exports=class Parent extends Model {
             }
         }
     }
+
+    $beforeInsert(){
+        if(this.email){
+          this.email=this.email.trim().toLowerCase();
+        }
+    }
+    $beforeUpdate(){
+        if(this.email){
+          this.email=this.email.trim().toLowerCase();
+        }
+    }
+
 }
