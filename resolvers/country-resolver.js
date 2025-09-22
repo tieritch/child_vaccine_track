@@ -22,7 +22,7 @@ const countryResolver={
         createCountry: async(_,{input},context)=>{
             
             try{
-                await createCountrySchema.validateAsync(input,input, { abortEarly: false });
+                await createCountrySchema.validateAsync(input, { abortEarly: false });
             }
             catch(err){
                 throw formatJoiError(err);

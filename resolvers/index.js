@@ -2,6 +2,8 @@ const userResolver=require('./user-resolver');
 const roleResolver=require('./role-resolver');
 const zoneResolver=require('./zone-resolver');
 const countryResolver=require('./country-resolver');
+const parentResolver=require('./parent-resolver');
+const childResolver=require('./child-resolver');
 //const { userResolver, roleResolver} = require('../resolvers');
 /*const rootResolver={
     ...userResolver,
@@ -13,5 +15,7 @@ module.exports={
     userResolver,
     roleResolver,
     zoneResolver,
-    countryResolver
+    countryResolver,
+    parentResolver,
+    childResolver
 }
