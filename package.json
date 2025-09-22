@@ -11,6 +11,7 @@
   "description": "",
   "dependencies": {
     "@graphql-tools/schema": "^10.0.25",
+    "@joi/date": "^2.1.1",
     "bcrypt": "^6.0.0",
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
