@@ -12,14 +12,19 @@ const createChildSchema=Joi.object({
     lastname: Joi.string(),
     address: Joi.string(),
     sex_id: Joi.string(),
-    birth_year: Joi.date().format('YYYY-MM-DD'),
+    birth_date: Joi.date().format('YYYY-MM-DD'),
     parent_id: Joi.number().integer(),
 
 }).external( async(input)=>{
     
-    const sex=await Sex.query().findById(input.id);
+    const sex=await Sex.query().findById(input.sex_id);
     if(!sex){
         throw new Error('The sex ID does not exist');
+    }
+    
+    const parent=await Parent.query().findById(input.parent_id);
+    if(!parent){
+        throw new Error('The parent ID does not exist');
     }
 
 } )
@@ -31,7 +36,7 @@ const updateChildSchema=Joi.object({
     lastname: Joi.string(),
     address: Joi.string(),
     sex: Joi.string(),
-    birth_year: Joi.date().format('YYYY-MM-DD'),
+    birth_date: Joi.date().format('YYYY-MM-DD'),
     parent_id: Joi.number().integer(),
 })
 .external( async(input)=>{
@@ -41,10 +46,19 @@ const updateChildSchema=Joi.object({
         throw new Error('The child ID does not exist');
     } 
 
-    let parent=await Parent.query().findById(input.parent_id);
-    if(!parent){
-        throw new Error(" The parent ID does not exist");
-        
+    if(input.parent_id){
+        const parent=await Parent.query().findById(input.parent_id);
+        if(!parent){
+            throw new Error(" The parent ID does not exist");
+            
+        }
+    }
+
+    if(input.sex){
+        const sex=await Sex.query().findById(input.sex_id);
+        if(!sex){
+            throw new Error('The sex ID does not exist');
+        }
     }
 
 })
@@ -61,7 +75,7 @@ const deleteChildSchema=Joi.object({
 
 })
 
-moodule.exports={
+module.exports={
     createChildSchema,
     updateChildSchema,
     deleteChildSchema
