@@ -36,6 +36,7 @@ const createParentSchema=Joi.object({
     firstname: Joi.string(),
     lastname: Joi.string(),
     email: Joi.string().email(),
+    sex_id: Joi.number().integer(),
     phone_number: Joi.string()
         .phoneNumber({defaultCountry: 'BI', format: 'international'})
 })
@@ -62,7 +63,12 @@ const deleteParentSchema=Joi.object({
 })
 .external(async(input)=>{
 
-    await customCheck(input)
+    const children=await Parent.relatedQuery('children').for(input.id);
+    if(children.length>0){
+        throw new Error('Cannot delete: Children associated with this parent exist'); 
+    }
+    
+    await customCheck(input);
     
 })
 

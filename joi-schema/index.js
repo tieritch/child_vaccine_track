@@ -8,10 +8,13 @@ const {createCountrySchema,updateCountrySchema,deleteCountrySchema}=require('./c
 
 const { createParentSchema,updateParentSchema,deleteParentSchema}=require('./parent');
 
+const {createChildSchema,updateChildSchema, deleteChildSchema }=require('./child');
+
 module.exports={
     createUserSchema,    updateUserSchema,    deleteUserSchema, loginSchema,
     createRoleSchema,    updateRoleSchema,    deleteRoleSchema,
     createZoneSchema,    updateZoneSchema,    deleteZoneSchema,
     createCountrySchema, updateCountrySchema, deleteCountrySchema,
-    createParentSchema,  updateParentSchema,  deleteParentSchema  
+    createParentSchema,  updateParentSchema,  deleteParentSchema,
+    createChildSchema,   updateChildSchema,   deleteChildSchema   
 }
