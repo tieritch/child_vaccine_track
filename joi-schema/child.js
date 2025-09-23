@@ -11,7 +11,7 @@ const createChildSchema=Joi.object({
     firstname: Joi.string(),
     lastname: Joi.string(),
     address: Joi.string(),
-    sex_id: Joi.string(),
+    sex_id: Joi.number().integer(),
     birth_date: Joi.date().format('YYYY-MM-DD'),
     parent_id: Joi.number().integer(),
 
@@ -35,7 +35,7 @@ const updateChildSchema=Joi.object({
     firstname: Joi.string(),
     lastname: Joi.string(),
     address: Joi.string(),
-    sex: Joi.string(),
+    sex_id: Joi.number().integer(),
     birth_date: Joi.date().format('YYYY-MM-DD'),
     parent_id: Joi.number().integer(),
 })
@@ -54,7 +54,7 @@ const updateChildSchema=Joi.object({
         }
     }
 
-    if(input.sex){
+    if(input.sex_id){
         const sex=await Sex.query().findById(input.sex_id);
         if(!sex){
             throw new Error('The sex ID does not exist');
