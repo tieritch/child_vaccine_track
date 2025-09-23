@@ -34,9 +34,11 @@ module.exports=class HealthAgent extends Model{
 
             user:{
                 relation: Model.BelongsToOneRelation,
-                modelClass: require('./users'),
-                from:" health_agents.user_id",
-                to:" users.id"
+                modelClass: require('./user'),
+                join:{
+                    from:" health_agents.user_id",
+                    to:" users.id"
+                }
             }
 
         }
