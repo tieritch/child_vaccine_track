@@ -21,10 +21,11 @@ const parentResolver={
 
     Mutation:{
 
-        createParent: async(_, {input})=>{
-            console.log( 'BEFORE Schema')
-            console.log(input)
+        createParent: async(_, {input}, context)=>{
+
             let validInput={};
+            validInput.by=context.user.id;
+
             try{
                 validInput=await createParentSchema.validateAsync(input, {abortEarly: false})
             }
@@ -43,9 +44,10 @@ const parentResolver={
 
         },
 
-        updateParent: async(_, {input} )=>{
+        updateParent: async(_, {input}, context)=>{
             
             let validInput={}; 
+            validInput.by=context.user.id
 
             try{
                 validInput=await updateParentSchema.validateAsync(input, {abortEarly: false})

@@ -26,7 +26,10 @@ const childResolver={
 
     Mutation:{
 
-        createChild: async(_, {input})=>{
+        createChild: async(_, {input}, context)=>{
+
+            input.by=context.user.id;
+
             try{
                 await createChildSchema.validateAsync(input, { abortEarly: false });
             }
@@ -43,6 +46,8 @@ const childResolver={
         },
 
         updateChild: async(_, {input})=>{
+            
+            input.by=context.user.id;
             
             try{
                 await updateChildSchema.validateAsync(input, {abortEarly: false});

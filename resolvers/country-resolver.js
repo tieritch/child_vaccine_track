@@ -19,7 +19,9 @@ const countryResolver={
 
     Mutation:{
 
-        createCountry: async(_,{input},context)=>{
+        createCountry: async(_,{input}, context)=>{
+
+            input.by=context.user.id
             
             try{
                 await createCountrySchema.validateAsync(input, { abortEarly: false });
@@ -36,7 +38,7 @@ const countryResolver={
             }
         },
 
-        deleteCountry: async(_,{id},context)=>{           
+        deleteCountry: async(_,{id})=>{           
 
             try{
                 await deleteCountrySchema.validateAsync({id},{abortEarly: false});
@@ -54,6 +56,8 @@ const countryResolver={
         },
 
          updateCountry: async(_,{input},context)=>{
+
+            input.by=context.user.id;
              
             try{
                 await updateCountrySchema.validateAsync(input, {abortEarly: false})
