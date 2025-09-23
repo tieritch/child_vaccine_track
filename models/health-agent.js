@@ -9,16 +9,29 @@ module.exports=class HealthAgent extends Model{
     static get relationMappings(){
 
         return{
+            
             zone:{
                 relation: Model.ManyToManyRelation,
-                modelClass: require('./health-agent'),
+                modelClass: require('./zone'),
                 from:"health_agents.id",
-                through:{
-                    from:" zones_agents.agent_id",
-                    to:"zones_agents.zone_id"
-                },
+                    through:{
+                        from:" zones_agents.agent_id",
+                        to:"zones_agents.zone_id"
+                    },
                 to: "zones.id"
+            },
+
+            children:{
+                relation: Model.ManyToManyRelation,
+                modelClass: require('./child'),
+                from:"health_agents".id,
+                    through:{
+                        from: "children_agent.agent_id",
+                        to: "children_agent.child_id"
+                    },
+                to:"children.id"
             }
+
         }
     }
 }
