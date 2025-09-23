@@ -68,6 +68,19 @@ const updateUserSchema=Joi.object({
     "string.pattern.base": "Password must contain at least one uppercase letter, one lowercase letter, and one number."
   }),
 })
+.external( async(input)=>{
+  let user={};
+  
+  user= await User.query().findById(input.id);
+  if(user){
+    throw new Error(' The user ID does not exist ')
+  }
+
+  user=await User.query().findOne({email:input.email.trim().toLowerCase()});
+  if(user){
+    throw new Error(" The email already in use");
+  }
+})
 
 const deleteUserSchema=Joi.object({
   id:Joi.number().integer()
