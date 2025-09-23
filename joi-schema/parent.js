@@ -28,6 +28,7 @@ const customCheck=async(input)=>{
         if(parent){
             throw new Error("The phone number already in use");
         }
+        input.phone_number=input.phone_number.replace(/\s+/g, "");
     }
    
 }
