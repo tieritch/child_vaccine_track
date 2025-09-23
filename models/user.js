@@ -5,6 +5,7 @@ module.exports=class User extends Model {
   };
   static get relationMappings(){
     return {
+      
       roles:{
         relation:Model.ManyToManyRelation,
         modelClass:require('./role'),//path.join(__dirname,'role'),
@@ -17,6 +18,15 @@ module.exports=class User extends Model {
           to:'roles.id',
         },
       },
+
+      agent:{
+        relation: Model.HasOneRelation,
+        modelClass: require('./health-agent'),
+        join:{
+          from:"users.id",
+          to:"health_agents.user_id"
+        }
+      }
     };
   }
   /*static get jsonSchema(){
