@@ -15,11 +15,11 @@ const childResolver={
     Query:{
 
         getChild: async(_, {id})=>{
-            return await Child.query().findById(id);
+            return await Child.query().findById(id).withGraphFetched('agents.user');
         },
 
         children: async()=>{
-            return await Child.query();
+            return await Child.query().withGraphFetched('agents.user');
         }
 
     },
