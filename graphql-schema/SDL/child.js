@@ -1,5 +1,15 @@
 const childSDL=`
-
+    
+    type User{
+        id: ID
+        firstname: String
+        lastname: String
+    }
+    
+    type Agent{
+        agent_id: ID
+        user: User
+    }
     type Child{
         id: ID!
         firstname: String!
@@ -8,6 +18,7 @@ const childSDL=`
         sex_id: ID!
         birth_date: String!
         parent_id: ID!
+        agents: [Agent!]
     }
     
     input ChildInput{
