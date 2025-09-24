@@ -4,7 +4,7 @@
  */
 exports.up = function(knex) {
     return knex.schema.createTable('children_agents', (table)=>{
-        table.integer('children_id').references('id').inTable('children').notNullable();
+        table.integer('child_id').references('id').inTable('children').notNullable();
         table.integer('agent_id').references('id').inTable('health_agents').notNullable();
     })
 };
