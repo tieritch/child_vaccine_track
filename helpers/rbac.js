@@ -17,7 +17,9 @@ async function accessByRole(actions,resources,context){
                                                           parents       8
                                                           children      9
                                                           permissions   10
-                                                          resources     11              
+                                                          resources     11   
+                                                          zone_child_enrollments 12
+                                                          zones_agents: 13           
                                         here will be more as I progress
    */
     const user = context.user;
