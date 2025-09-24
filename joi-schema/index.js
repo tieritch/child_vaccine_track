@@ -10,11 +10,14 @@ const { createParentSchema,updateParentSchema,deleteParentSchema}=require('./par
 
 const {createChildSchema,updateChildSchema, deleteChildSchema }=require('./child');
 
+const {createAgentSchema, updateAgentSchema, deleteAgentSchema }=require('./health-agent');
+
 module.exports={
     createUserSchema,    updateUserSchema,    deleteUserSchema, loginSchema,
     createRoleSchema,    updateRoleSchema,    deleteRoleSchema,
     createZoneSchema,    updateZoneSchema,    deleteZoneSchema,
     createCountrySchema, updateCountrySchema, deleteCountrySchema,
     createParentSchema,  updateParentSchema,  deleteParentSchema,
-    createChildSchema,   updateChildSchema,   deleteChildSchema   
+    createChildSchema,   updateChildSchema,   deleteChildSchema,
+    createAgentSchema,   updateAgentSchema,   deleteAgentSchema   
 }
