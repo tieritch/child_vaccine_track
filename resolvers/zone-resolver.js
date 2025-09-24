@@ -22,6 +22,8 @@ const zoneResolver={
 
         createZone: async(_,{input}, context)=>{
 
+            input.by=context.user.id;
+
             try{
                 await createZoneSchema.validateAsync(input, {abortEarly: false});
             }
@@ -65,8 +67,10 @@ const zoneResolver={
             }
         },
 
-        updateZone: async(_,{input})=>{
+        updateZone: async(_,{input}, context)=>{
             
+            input.by=context.user.id;
+
             try{
                 await updateZoneSchema.validateAsync(input, {abortEarly:false})
             }
