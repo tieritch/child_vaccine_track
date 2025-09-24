@@ -36,7 +36,7 @@ exports.seed = async function(knex) {
   //  Resources
   const resourceNames = [
     'users', 'roles', 'vaccines', 'vaccinations', 'countries','zones','health_agents',
-    'parents','children','permissions','resources'
+    'parents','children','permissions','resources','zone_child_enrollments',"zones_agents"
   ];
   
   await knex('resources')
