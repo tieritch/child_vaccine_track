@@ -26,10 +26,10 @@ const healthAgentResolver={
         createAgent: async(_, {input}, context)=>{
             
             let validInput={}
-            validInput.by=context.user.id;
 
             try{
                 validInput=await createAgentSchema.validateAsync(input, { abortEarly: false });
+                validInput.by=context.user.id;
             }
             catch(err){
                 return formatJoiError(err)
@@ -46,10 +46,10 @@ const healthAgentResolver={
         updateAgent: async(_, {input}, context)=>{
 
             let validInput={};
-            validInput.by=context.user.id;
-          console.log(' before schema');
+
             try{
                 validInput=await updateAgentSchema.validateAsync(input, {abortEarly: false});
+                validInput.by=context.user.id;
             }
             catch(err){
                 return formatJoiError(err);
