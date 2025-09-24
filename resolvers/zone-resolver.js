@@ -80,7 +80,7 @@ const zoneResolver={
             try{
                 const zoneNoId={...input};
                 delete zoneNoId.id;
-                const zone=await Zone.query().patch(zoneNoId).where({id: input.id}).first();
+                const zone=await Zone.query().patch(zoneNoId).where({id: input.id}).returning('*').first();
                 return zone;
             }
             catch(err){
