@@ -12,7 +12,7 @@ exports.up =  async function(knex) {
 
         .createTable('zone_child_enrollments',(table)=>{
             table.increments();
-            table.integer('children_id').references('id').inTable('children');
+            table.integer('child_id').references('id').inTable('children');
             table.integer('zone_id').references('id').inTable('zones');
             table.timestamps(true,true);
         })
