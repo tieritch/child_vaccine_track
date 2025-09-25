@@ -22,6 +22,8 @@ async function accessByRole(actions,resources,context){
                                                           zones_agents: 13           
                                         here will be more as I progress
    */
+  console.log('actions:',actions);
+  console.log('resources:',resources);
     const user = context.user;
     const userFound=await User.query().findById(user.id);
     const role=await userFound.$relatedQuery('roles').first()//.withGraphJoined('[permissions,resources]');
@@ -33,6 +35,8 @@ async function accessByRole(actions,resources,context){
       .modifyGraph('roles.permissions.resources', builder => {
         return  builder.where('roles_permissions_resources.role_id', role.id);
       });
+    
+      console.log( 'dbUser:',JSON.stringify(dbUser,null,2))
 
       const normalizedActions = actions.map(a => a.trim().toUpperCase());
       const normalizedResources = resources.map(r => r.trim().toLowerCase());
@@ -41,8 +45,8 @@ async function accessByRole(actions,resources,context){
         normalizedActions.every(action =>
           normalizedResources.every(resource =>
             role.permissions.some(permission =>
-              permission.name.toUpperCase() === action.toUpperCase() &&
-              permission.resources.some(r => r.name === resource &&  r.role_id === role.id)
+              permission.name.toUpperCase().trim() === action.toUpperCase() &&
+              permission.resources.some(r => r.name.trim() === resource &&  r.role_id === role.id)
             )
           )
 
