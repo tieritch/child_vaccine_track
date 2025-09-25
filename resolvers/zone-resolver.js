@@ -22,10 +22,10 @@ const zoneResolver={
 
         createZone: async(_,{input}, context)=>{
 
-            input.by=context.user.id;
 
             try{
                 await createZoneSchema.validateAsync(input, {abortEarly: false});
+                input.by=context.user.id;
             }
             catch(err){                
                 throw formatJoiError(err)
@@ -68,11 +68,10 @@ const zoneResolver={
         },
 
         updateZone: async(_,{input}, context)=>{
-            
-            input.by=context.user.id;
 
             try{
-                await updateZoneSchema.validateAsync(input, {abortEarly:false})
+                await updateZoneSchema.validateAsync(input, {abortEarly:false});
+                input.by=context.user.id;
             }
             catch(err){
                 formatError(err);

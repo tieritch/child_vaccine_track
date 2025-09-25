@@ -28,10 +28,9 @@ const childResolver={
 
         createChild: async(_, {input}, context)=>{
 
-            input.by=context.user.id;
-
             try{
                 await createChildSchema.validateAsync(input, { abortEarly: false });
+                input.by=context.user.id;
             }
             catch(err){
                 return formatJoiError(err);
@@ -47,10 +46,9 @@ const childResolver={
 
         updateChild: async(_, {input})=>{
             
-            input.by=context.user.id;
-            
             try{
                 await updateChildSchema.validateAsync(input, {abortEarly: false});
+                input.by=context.user.id;
             }
             catch(err){
                 return formatJoiError(err)

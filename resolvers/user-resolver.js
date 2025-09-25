@@ -110,6 +110,7 @@ const userResolver = {
 
             try{
                 await updateUserSchema.validateAsync(input,{abortEarly:false});
+                input.by=context.user.id;
             }
             catch(err){
                 throw formatJoiError(err);        

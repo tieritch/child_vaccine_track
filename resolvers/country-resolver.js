@@ -21,10 +21,10 @@ const countryResolver={
 
         createCountry: async(_,{input}, context)=>{
 
-            input.by=context.user.id
             
             try{
                 await createCountrySchema.validateAsync(input, { abortEarly: false });
+                input.by=context.user.id
             }
             catch(err){
                 throw formatJoiError(err);
@@ -56,11 +56,10 @@ const countryResolver={
         },
 
          updateCountry: async(_,{input},context)=>{
-
-            input.by=context.user.id;
              
             try{
-                await updateCountrySchema.validateAsync(input, {abortEarly: false})
+                await updateCountrySchema.validateAsync(input, {abortEarly: false});
+                input.by=context.user.id;
             }
             catch(err){
                 throw formatJoiError(err);

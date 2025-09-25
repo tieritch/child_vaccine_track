@@ -80,7 +80,7 @@ const roleResolver={
   
         try{
         
-            validInput=await updateRoleSchema.validateAsync(input,{abortEarly:false})
+            validInput=await updateRoleSchema.validateAsync(input,{abortEarly:false});
         }
         catch(err){
             throw formatJoiError(err);
