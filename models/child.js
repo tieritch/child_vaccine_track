@@ -45,7 +45,7 @@ module.exports=class Child extends Model{
                }
             },
 
-            zone:{
+            zones:{
                relation: Model.ManyToManyRelation,
                modelClass: require('./zone'),
                join:{
