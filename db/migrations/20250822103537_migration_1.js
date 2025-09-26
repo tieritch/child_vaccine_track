@@ -72,7 +72,7 @@ exports.up = function(knex) {
         .createTable('vaccines',(table)=>{
             table.increments();
             table.string('name').notNullable().unique();
-            table.string('description').notNullable();
+            table.string('description')//.notNullable();
             table.integer('required_doses').notNullable();
             table.integer('interval_between').notNullable();
             table.timestamps(true,true);
