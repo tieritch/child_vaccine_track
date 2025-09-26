@@ -45,18 +45,18 @@ exports.seed = async function(knex) {
     .ignore();
 
   await knex('vaccines').insert([
-    { name: 'BCG', description: 'Bacillus Calmette-Guérin vaccine (tuberculosis)', required_doses: 1 },
-    { name: 'Polio', description: 'Polio vaccine (oral or inactivated)', required_doses: 3 },
-    { name: 'DTP', description: 'Diphtheria, Tetanus, Pertussis vaccine', required_doses: 3 },
-    { name: 'Hepatitis B', description: 'Hepatitis B vaccine', required_doses: 3 },
-    { name: 'Hib', description: 'Haemophilus influenzae type b vaccine', required_doses: 3 },
+    { name: 'BCG', description: 'Bacillus Calmette-Guérin vaccine (tuberculosis)', required_doses: 1, interval_between:20 },
+    { name: 'Polio', description: 'Polio vaccine (oral or inactivated)', required_doses: 3, interval_between:20 },
+    { name: 'DTP', description: 'Diphtheria, Tetanus, Pertussis vaccine', required_doses: 3, interval_between:40 },
+    { name: 'Hepatitis B', description: 'Hepatitis B vaccine', required_doses: 3, interval_between:30 },
+    { name: 'Hib', description: 'Haemophilus influenzae type b vaccine', required_doses: 3, interval_between:20 },
     { name: 'Pneumococcal', description: 'Pneumococcal conjugate vaccine (PCV)', required_doses: 3 },
-    { name: 'Rotavirus', description: 'Rotavirus oral vaccine', required_doses: 2 },
+    { name: 'Rotavirus', description: 'Rotavirus oral vaccine', required_doses: 2, interval_between:25 },
     { name: 'Measles', description: 'Measles vaccine', required_doses: 2 },
-    { name: 'MMR', description: 'Measles, Mumps, Rubella combined vaccine', required_doses: 2 },
+    { name: 'MMR', description: 'Measles, Mumps, Rubella combined vaccine', required_doses: 2, interval_between:45 },
     { name: 'Varicella', description: 'Varicella (chickenpox) vaccine', required_doses: 2 },
-    { name: 'Meningococcal', description: 'Meningococcal conjugate vaccine (MenC/ACWY)', required_doses: 1 },
-    { name: 'Influenza', description: 'Seasonal influenza vaccine (annual)', required_doses: 1 }
+    { name: 'Meningococcal', description: 'Meningococcal conjugate vaccine (MenC/ACWY)', required_doses: 1, interval_between:60 },
+    { name: 'Influenza', description: 'Seasonal influenza vaccine (annual)', required_doses: 1, interval_between:80 }
   ]);
 
   
