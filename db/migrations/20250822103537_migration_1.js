@@ -74,6 +74,7 @@ exports.up = function(knex) {
             table.string('name').notNullable().unique();
             table.string('description').notNullable();
             table.integer('required_doses').notNullable();
+            table.integer('interval_between').notNullable();
             table.timestamps(true,true);
             table.integer('by');
         })
