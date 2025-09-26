@@ -14,6 +14,8 @@ const {createAgentSchema, updateAgentSchema, deleteAgentSchema }=require('./heal
 
 const {createZoneChildSchema, updateZoneChildSchema, deleteZoneChildSchema}=require('./zone-child');
 
+const { createVaccineSchema, updateVaccineSchema, deleteVaccineSchema}=require('./vaccine');
+
 module.exports={
     createUserSchema,       updateUserSchema,       deleteUserSchema, loginSchema,
     createRoleSchema,       updateRoleSchema,       deleteRoleSchema,
@@ -22,5 +24,6 @@ module.exports={
     createParentSchema,     updateParentSchema,     deleteParentSchema,
     createChildSchema,      updateChildSchema,      deleteChildSchema,
     createAgentSchema,      updateAgentSchema,      deleteAgentSchema,
-    createZoneChildSchema,  updateZoneChildSchema,  deleteZoneChildSchema   
+    createZoneChildSchema,  updateZoneChildSchema,  deleteZoneChildSchema,
+    createVaccineSchema,    updateVaccineSchema,    deleteVaccineSchema   
 }
