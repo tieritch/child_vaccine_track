@@ -16,7 +16,7 @@ const childSDL=`
         lastname: String
         address: String!
         sex_id: ID!
-        birth_date: String!
+        birth_date: Date!
         parent_id: ID!
         agents: [Agent!]
     }
