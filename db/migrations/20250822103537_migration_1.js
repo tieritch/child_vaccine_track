@@ -112,7 +112,6 @@ exports.up = function(knex) {
 
         .createTable('vaccinations',(table)=>{
             table.increments();
-            table.integer('dose_number').notNullable();
             table.integer('health_agent_id').references('id').inTable('health_agents');
             table.integer('child_id').references('id').inTable('children');
             table.integer('vaccine_id').references('id').inTable('vaccines');
