@@ -13,7 +13,7 @@ const parentSDL=`
         firstname: String!
         lastname: String
         email: String
-        phone_number: String
+        phone_number: String!
         sex_id: ID!
     }
 
