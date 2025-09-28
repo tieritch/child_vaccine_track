@@ -91,7 +91,7 @@ exports.up = function(knex) {
             table.string('firstname').notNullable();
             table.string('lastname').notNullable();
             table.string('email').unique();
-            table.string('phone_number').notNullable().unique();
+            table.string('phone_number').notNullable();
             table.integer("sex_id").references('id').inTable('sexes');
             table.timestamps(true,true);
             table.integer('by');
