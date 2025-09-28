@@ -50,11 +50,11 @@ exports.seed = async function(knex) {
     { name: 'DTP', description: 'Diphtheria, Tetanus, Pertussis vaccine', required_doses: 3, interval_between:40 },
     { name: 'Hepatitis B', description: 'Hepatitis B vaccine', required_doses: 3, interval_between:30 },
     { name: 'Hib', description: 'Haemophilus influenzae type b vaccine', required_doses: 3, interval_between:20 },
-    { name: 'Pneumococcal', description: 'Pneumococcal conjugate vaccine (PCV)', required_doses: 3 },
+    { name: 'Pneumococcal', description: 'Pneumococcal conjugate vaccine (PCV)', required_doses: 3,  interval_between:20 },
     { name: 'Rotavirus', description: 'Rotavirus oral vaccine', required_doses: 2, interval_between:25 },
-    { name: 'Measles', description: 'Measles vaccine', required_doses: 2 },
+    { name: 'Measles', description: 'Measles vaccine', required_doses: 2,  interval_between:20 },
     { name: 'MMR', description: 'Measles, Mumps, Rubella combined vaccine', required_doses: 2, interval_between:45 },
-    { name: 'Varicella', description: 'Varicella (chickenpox) vaccine', required_doses: 2 },
+    { name: 'Varicella', description: 'Varicella (chickenpox) vaccine', required_doses: 2,  interval_between:20 },
     { name: 'Meningococcal', description: 'Meningococcal conjugate vaccine (MenC/ACWY)', required_doses: 1, interval_between:60 },
     { name: 'Influenza', description: 'Seasonal influenza vaccine (annual)', required_doses: 1, interval_between:80 }
   ]);
