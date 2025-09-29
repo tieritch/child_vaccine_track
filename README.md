@@ -38,3 +38,14 @@ The database schema is handled through **Knex migrations** and **Objection.js mo
 ├── joi-schema/ # Joi validation schemas
 ├── redis-client.js # Redis client (if used)
 └── package.json
+
+
+---
+
+## Setup
+
+### 1. Clone the repository
+```bash
+git clone https://github.com/tieritch/child_vaccine_track.git
+cd child_vaccine_track
+
