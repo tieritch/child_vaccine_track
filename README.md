@@ -30,3 +30,11 @@ The database schema is handled through **Knex migrations** and **Objection.js mo
 ---
 
 ## Project Structure
+├── index.js # Server entry point
+├── graphql-schema/ # GraphQL type definitions
+├── resolvers/ # GraphQL resolvers
+├── models/ # Objection.js models
+├── migrations/ # Knex migrations for PostgreSQL
+├── joi-schema/ # Joi validation schemas
+├── redis-client.js # Redis client (if used)
+└── package.json
