@@ -49,13 +49,6 @@ git clone https://github.com/tieritch/child_vaccine_track.git
 cd child_vaccine_track
 
 
-## ⚙️ Setup
-
-### 1. Clone the repository
-```bash
-git clone https://github.com/tieritch/child_vaccine_track.git
-cd child_vaccine_track
-
 
 
 
