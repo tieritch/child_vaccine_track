@@ -16,14 +16,17 @@ const {createZoneChildSchema, updateZoneChildSchema, deleteZoneChildSchema}=requ
 
 const { createVaccineSchema, updateVaccineSchema, deleteVaccineSchema}=require('./vaccine');
 
+const { createVaccinationSchema,updateVaccinationSchema,deleteVaccinationSchema}=require('./vaccination')
+
 module.exports={
-    createUserSchema,       updateUserSchema,       deleteUserSchema, loginSchema,
-    createRoleSchema,       updateRoleSchema,       deleteRoleSchema,
-    createZoneSchema,       updateZoneSchema,       deleteZoneSchema,
-    createCountrySchema,    updateCountrySchema,    deleteCountrySchema,
-    createParentSchema,     updateParentSchema,     deleteParentSchema,
-    createChildSchema,      updateChildSchema,      deleteChildSchema,
-    createAgentSchema,      updateAgentSchema,      deleteAgentSchema,
-    createZoneChildSchema,  updateZoneChildSchema,  deleteZoneChildSchema,
-    createVaccineSchema,    updateVaccineSchema,    deleteVaccineSchema   
+    createUserSchema,        updateUserSchema,        deleteUserSchema, loginSchema,
+    createRoleSchema,        updateRoleSchema,        deleteRoleSchema,
+    createZoneSchema,        updateZoneSchema,        deleteZoneSchema,
+    createCountrySchema,     updateCountrySchema,     deleteCountrySchema,
+    createParentSchema,      updateParentSchema,      deleteParentSchema,
+    createChildSchema,       updateChildSchema,       deleteChildSchema,
+    createAgentSchema,       updateAgentSchema,       deleteAgentSchema,
+    createZoneChildSchema,   updateZoneChildSchema,   deleteZoneChildSchema,
+    createVaccineSchema,     updateVaccineSchema,     deleteVaccineSchema ,
+    createVaccinationSchema, updateVaccinationSchema, deleteVaccinationSchema  
 }
