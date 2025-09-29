@@ -48,12 +48,7 @@ The database schema is handled through **Knex migrations** and **Objection.js mo
 git clone https://github.com/tieritch/child_vaccine_track.git
 cd child_vaccine_track
 
-## ⚙️ Setup
-
-### 1. Clone the repository
-```bash
-git clone https://github.com/tieritch/child_vaccine_track.git
-cd child_vaccine_track
+###2 ffff
 
 
 
