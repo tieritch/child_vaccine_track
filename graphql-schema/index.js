@@ -15,16 +15,17 @@ const childSDL=require('./SDL/child');
 const agentSDL=require('./SDL/health-agent');
 const zoneChildSDL=require('./SDL/zone-child');
 const vaccineSDL=require('./SDL/vaccine');
+const vaccinationSDL=require('./SDL/vaccination');
 
 const typeDefs=mergeTypeDefs([baseTypeDefs,directiveSDL,userSDL,roleSDL,zoneSDL,
-  countrySDL,parentSDL,childSDL,agentSDL,zoneChildSDL, vaccineSDL
+  countrySDL,parentSDL,childSDL,agentSDL,zoneChildSDL, vaccineSDL, vaccinationSDL
 ]);
 
 const {dateResolver,userResolver,roleResolver, zoneResolver,countryResolver,parentResolver,childResolver,
-agentResolver,zoneChildResolver, vaccineResolver}=require('../resolvers');
+agentResolver,zoneChildResolver, vaccineResolver, vaccinationResolver}=require('../resolvers');
 
 const resolvers = mergeResolvers([dateResolver,userResolver,roleResolver,zoneResolver,countryResolver,parentResolver,
-  childResolver,agentResolver,zoneChildResolver,vaccineResolver]);
+  childResolver,agentResolver,zoneChildResolver,vaccineResolver, vaccinationResolver]);
 
 let schema = makeExecutableSchema({
     typeDefs,
