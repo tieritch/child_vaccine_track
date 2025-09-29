@@ -24,6 +24,11 @@ const customCheck= async(input)=>{
         if(!user){
             throw new Error(' The user ID does not exist')
         }
+        const agent= await HealthAgent.query().findOne({user_id: input.user_id});
+        if(agent){
+            throw new Error(" The user is alread a health agent");
+        }
+        
     }
 
     if(input.email){
