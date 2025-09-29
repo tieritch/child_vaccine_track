@@ -53,14 +53,14 @@ npm install
 
 ### 3. Configure environment variables
 Create a .env file at the root:
-PORT=
-HOST=
-DB_NAME=
-DB_PASSWORD=
-USER_NAME=
-ACCESS_TOKEN_SECRET=
-REFRESH_TOKEN_SECRET=
-NODE_ENV=
+PORT=  
+HOST=  
+DB_NAME=  
+DB_PASSWORD=  
+USER_NAME=  
+ACCESS_TOKEN_SECRET=  
+REFRESH_TOKEN_SECRET=  
+NODE_ENV=  
 
 
 
