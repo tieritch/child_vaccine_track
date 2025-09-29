@@ -8,6 +8,7 @@ const childResolver=require('./child-resolver');
 const agentResolver=require('./health-agent-resolver');
 const zoneChildResolver=require('./zone-child-resolver');
 const vaccineResolver=require('./vaccine-resolver');
+const vaccinationResolver=require('./vaccination-resolver');
 //const { userResolver, roleResolver} = require('../resolvers');
 /*const rootResolver={
     ...userResolver,
@@ -25,5 +26,6 @@ module.exports={
     childResolver,
     agentResolver,
     zoneChildResolver,
-    vaccineResolver
+    vaccineResolver,
+    vaccinationResolver
 }
