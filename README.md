@@ -6,7 +6,7 @@ The database schema is handled through **Knex migrations** and **Objection.js mo
 
 ---
 
-## Key Features
+## 🚀 Key Features
 - Children Management: add, update, delete, and list children.
 - Vaccines Management: maintain a catalog of available vaccines.
 - Vaccination Records: track which child received which vaccine, when, and where.
@@ -18,7 +18,7 @@ The database schema is handled through **Knex migrations** and **Objection.js mo
 
 ---
 
-## Tech Stack
+## 🛠️ Tech Stack
 - Node.js & Express.js
 - GraphQL (schema and resolvers)
 - Knex.js & Objection.js for database queries and models
@@ -29,7 +29,7 @@ The database schema is handled through **Knex migrations** and **Objection.js mo
 
 ---
 
-## Project Structure
+## 📂 Project Structure
 ├── index.js # Server entry point
 ├── graphql-schema/ # GraphQL type definitions
 ├── resolvers/ # GraphQL resolvers
@@ -39,18 +39,17 @@ The database schema is handled through **Knex migrations** and **Objection.js mo
 ├── redis-client.js # Redis client (if used)
 └── package.json
 
-
 ---
 
-## Setup
+## ⚙️ Setup
 
 ### 1. Clone the repository
 ```bash
 git clone https://github.com/tieritch/child_vaccine_track.git
 cd child_vaccine_track
 
-## Install dependencies
-```bash
+### 2. Install dependencies
 npm install
+
 
 
