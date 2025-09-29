@@ -50,6 +50,7 @@ git clone https://github.com/tieritch/child_vaccine_track.git
 cd child_vaccine_track
 
 ## Install dependencies
+```bash
 npm install
 
 
