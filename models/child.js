@@ -16,7 +16,7 @@ module.exports=class Child extends Model{
                join:{
                   from:" children.id",
                   through:{
-                     from:"zone_child_enrollments.children_id",
+                     from:"zone_child_enrollments.child_id",
                      to:"zone_child_enrollments.zone_id",
                   },
                   to:"zones.id"
@@ -45,18 +45,6 @@ module.exports=class Child extends Model{
                }
             },
 
-            zones:{
-               relation: Model.ManyToManyRelation,
-               modelClass: require('./zone'),
-               join:{
-                  from: "children.id",
-                  through:{
-                     from: "zones_agents.child_id",
-                     to: "zones_agents.zone_id"
-                  },
-                  to: "zones.id"
-               }
-            }
          } 
      }
 
