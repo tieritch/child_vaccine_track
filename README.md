@@ -71,22 +71,28 @@ npx knex migrate:latest
  npm run dev
 The GraphQL API will be available at: http://localhost:8500/graphql
 
-Role-Based Access Control (RBAC)
+## Role-Based Access Control (RBAC)
 
 The system implements RBAC to manage access:
-Admin: full permissions to manage users, children, vaccines, and records.
-Healthcare Worker: can manage children and vaccination records.
-An admin can create roles, assign permissions to those roles, and decide which users to grant them to.
+
+- **Admin**: full permissions to manage users, children, vaccines, and records.  
+- **Healthcare Worker**: can manage children and vaccination records.  
+- **Parent/User**: can view their own child’s vaccination records.  
+
+An admin can create roles, assign permissions to those roles, and decide which users to grant them to.  
 This ensures proper security and data privacy across the platform.
 
-Database
+---
 
-The database schema is defined via Knex migrations (/migrations).
-Objection.js models represent entities and define relationships (e.g., User, Child, Vaccine, ChildVaccination).
+## Database
+
+The database schema is defined via **Knex migrations** (`/migrations`).  
+**Objection.js models** represent entities and define relationships (e.g., User, Child, Vaccine, ChildVaccination).  
 Run migrations whenever setting up or updating the database.
 
+---
 
-License
+## License
 
-This project is released under the MIT License (or specify your chosen license).
+This project is released under the **MIT License** (or specify your chosen license).
 
